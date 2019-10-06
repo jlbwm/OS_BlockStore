@@ -1,10 +1,4 @@
 /*
- * @Author:              Tyler Nivin
- * @Email:               twn346@mail.missouri.edu
- * @Created Date:        Mon Sep 12, 2016, 10:06:36 PM
- * @Last Modified time:  Sat Sep 17, 2016, 01:08:24 AM
- *
- * @Description:
  */
 
 #include <gtest/gtest.h>
