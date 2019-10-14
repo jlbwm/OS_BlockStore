@@ -1,12 +1,22 @@
 #ifndef BLOCK_STORAGE_H__
 #define BLOCK_STORAGE_H__
- 
+
 #ifdef __cplusplus
-extern "C" {
+extern "C" 
+{
 #endif
 
 #include <stdlib.h>
 #include <stdbool.h>
+
+// Constants
+#define BITMAP_SIZE_BYTES 32         // 2^8 blocks. 
+#define BLOCK_STORE_NUM_BLOCKS 256   // 2^ blocks. 
+#define BLOCK_STORE_AVAIL_BLOCKS (BLOCK_STORE_NUM_BLOCKS - 1) // First block consumed by the FBM
+#define BLOCK_SIZE_BYTES 256         // 2^8 BYTES per block
+#define BLOCK_SIZE_BITS (BLOCK_SIZE_BYTES*)
+#define BLOCK_STORE_NUM_BYTES (BLOCK_STORE_NUM_BLOCKS * BLOCK_SIZE_BYTES)
+
 
 // Declaring the struct but not implementing in the header allows us to prevent users
 //  from using the object directly and monkeying with the contents
@@ -102,7 +112,6 @@ block_store_t *block_store_deserialize(const char *const filename);
 /// \return Number of bytes written, 0 on error
 ///
 size_t block_store_serialize(const block_store_t *const bs, const char *const filename);
-
 
 #ifdef __cplusplus
 }

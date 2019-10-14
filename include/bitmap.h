@@ -1,8 +1,9 @@
 #ifndef BITMAP_H__
 #define BITMAP_H__
- 
+
 #ifdef __cplusplus
-extern "C" {
+extern "C" 
+{
 #endif
 
 #include <stdint.h>
@@ -144,7 +145,6 @@ bitmap_t *bitmap_overlay(const size_t n_bits, void *const bitmap_data);
 /// \param bitmap The bitmap
 ///
 void bitmap_destroy(bitmap_t *bitmap);
-
 
 #ifdef __cplusplus
 }
