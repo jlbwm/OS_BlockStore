@@ -87,7 +87,7 @@ size_t block_store_get_total_blocks();
 /// \param buffer Data buffer to write to
 /// \return Number of bytes read, 0 on error
 ///
-size_t block_store_read(const block_store_t *const bs, const size_t block_id, void *buffer);
+size_t block_store_read(block_store_t *const bs, const size_t block_id, void *buffer);
 
 ///
 /// Reads data from the specified buffer and writes it to the designated block
@@ -111,7 +111,7 @@ block_store_t *block_store_deserialize(const char *const filename);
 /// \param filename The file to write to
 /// \return Number of bytes written, 0 on error
 ///
-size_t block_store_serialize(const block_store_t *const bs, const char *const filename);
+size_t block_store_serialize(block_store_t *const bs, const char *const filename);
 
 #ifdef __cplusplus
 }

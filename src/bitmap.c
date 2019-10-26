@@ -1,5 +1,6 @@
 #include "bitmap.h"
 #include <string.h>
+#include <stdio.h>
  
 // Just the one for now. Indicates we're an overlay and should not free
 // (also, make sure that ALL is as wide as ll of the flags)
@@ -58,6 +59,7 @@ static const uint8_t bit_totals[256] = {B6(0), B6(1), B6(1), B6(2)};
 
 // A place to generalize the creation process and setup
 bitmap_t *bitmap_initialize(size_t n_bits, BITMAP_FLAGS flags);
+bitmap_t* bitmap_initialize_no_data(size_t n_bits, BITMAP_FLAGS flags);
 
 void bitmap_set(bitmap_t *const bitmap, const size_t bit) {
     bitmap->data[bit >> 3] |= mask[bit & 0x07];
@@ -146,6 +148,10 @@ bitmap_t *bitmap_create(const size_t n_bits) {
     return bitmap_initialize(n_bits, NONE);
 }
 
+bitmap_t *bitmap_create_nodata(const size_t n_bits) {
+    return bitmap_initialize_no_data(n_bits, NONE);
+}
+
 const uint8_t *bitmap_export(const bitmap_t *const bitmap) {
     return bitmap->data;
 }
@@ -219,4 +225,29 @@ bitmap_t *bitmap_initialize(size_t n_bits, BITMAP_FLAGS flags) {
         }
     }
     return NULL;
+}
+
+// Helper function to create a NULL data bitmap
+bitmap_t* bitmap_initialize_no_data(size_t n_bits, BITMAP_FLAGS flags) {
+
+    if (n_bits) {  // must be non-zero
+        bitmap_t *bitmap = (bitmap_t *) malloc(sizeof(bitmap_t));
+        if (bitmap) {
+            bitmap->flags         = flags;
+            bitmap->bit_count     = n_bits;
+            bitmap->byte_count    = n_bits >> 3;
+            bitmap->leftover_bits = n_bits & 0x07;
+            bitmap->byte_count += (bitmap->leftover_bits ? 1 : 0);
+            bitmap->data = NULL;
+            return bitmap;
+        }
+    }
+    return NULL;
+}
+
+uint8_t* get_bitmap_data(bitmap_t *const bm) {
+    if (!bm) {
+        return NULL;
+    }
+    return bm->data;
 }

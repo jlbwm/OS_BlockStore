@@ -113,6 +113,16 @@ size_t bitmap_get_bytes(const bitmap_t *const bitmap);
 bitmap_t *bitmap_create(const size_t n_bits);
 
 ///
+/// Creates a bitmap to contain n bits and no data allocated
+/// \param n_bits
+/// \return New bitmap pointer, NULL on error
+///
+bitmap_t *bitmap_create_nodata(const size_t n_bits);
+
+
+
+
+///
 /// Gets pointer to the internal data for exporting
 ///  Be sure to query the bit and byte size if it's unknown
 /// \param bitmap The bitmap
@@ -145,6 +155,12 @@ bitmap_t *bitmap_overlay(const size_t n_bits, void *const bitmap_data);
 /// \param bitmap The bitmap
 ///
 void bitmap_destroy(bitmap_t *bitmap);
+
+///
+/// get bitmap_data section's first ptr
+/// \param bitmap The bitmap
+///
+uint8_t* get_bitmap_data(bitmap_t *const bitmap);
 
 #ifdef __cplusplus
 }
